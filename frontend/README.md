@@ -198,3 +198,119 @@ GET /home-inventar/findAll/bigstuff
   }
 ]
 ```
+
+### GET /home-inventar/find/:collection
+**Methode:** GET  
+**Endpunkt:** /home-inventar/find/:collection  
+**Beschreibung:** Ruft Artikel aus der angegebenen Sammlung basierend auf den angegebenen Abfrageparametern ab.  
+
+**Anfrageparameter:**  
+- `collection` (string): Der Name der Sammlung, aus der die Artikel abgerufen werden sollen.  
+
+**Anfragekörper:** JSON-Objekt, das die Abfrage mit den folgenden optionalen Eigenschaften darstellt:
+```json
+{
+  "_id": "6112e16c4c62cb451cacdd50",
+  "title": "Sofa",
+  "room": "Wohnzimmer",
+  "description": "Bequemes Sofa für das Wohnzimmer."
+}
+```
+
+**Antwortkörper:** Ein Array von Artikel-Objekten, die der Abfrage in der angegebenen Sammlung entsprechen.  
+
+**Beispiel Anfrage:**  
+```http
+GET /home-inventar/find/bigstuff
+Content-Type: application/json
+
+{
+  "title": "Sofa",
+  "room": "Wohnzimmer"
+}
+```
+
+**Beispiel Antwort:**  
+```json
+[
+  {
+    "_id": "6112e16c4c62cb451cacdd50",
+    "title": "Sofa",
+    "room": "Wohnzimmer",
+    "description": "Bequemes Sofa für das Wohnzimmer.",
+    "img": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD..."
+  }
+]
+```
+
+### PUT /home-inventar/update/:collection/:item
+**Methode:** PUT  
+**Endpunkt:** /home-inventar/update/:collection/:item  
+**Beschreibung:** Aktualisiert einen bestimmten Artikel in der angegebenen Sammlung.  
+
+**Anfrageparameter:**  
+- `collection` (string): Der Name der Sammlung, in der sich der Artikel befindet.  
+- `item` (string): Die ID des zu aktualisierenden Artikels.  
+
+**Anfragekörper:** JSON-Objekt, das die Aktualisierung mit den folgenden Eigenschaften darstellt:
+```json
+{
+  "updateParameter": "title",
+  "updateValue": "Bequemes Sofa"
+}
+```
+
+**Antwortkörper:** Das aktualisierte Artikel-Objekt mit seinen Eigenschaften.  
+
+**Beispiel Anfrage:**  
+```http
+PUT /home-inventar/update/bigstuff/6112e16c4c62cb451cacdd50
+Content-Type: application/json
+
+{
+  "updateParameter": "title",
+  "updateValue": "Bequemes Sofa"
+}
+```
+
+**Beispiel Antwort:**  
+```json
+{
+  "_id": "6112e16c4c62cb451cacdd50",
+  "title": "Bequemes Sofa",
+  "room": "Wohnzimmer",
+  "description": "Bequemes Sofa für das Wohnzimmer.",
+  "img": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD..."
+}
+```
+
+### DELETE /home-inventar/delete/:collection/:item
+**Methode:** DELETE  
+**Endpunkt:** /home-inventar/delete/:collection/:item  
+**Beschreibung:** Löscht einen bestimmten Artikel aus der angegebenen Sammlung.  
+
+**Anfrageparameter:**  
+- `collection` (string): Der Name der Sammlung, aus der der Artikel gelöscht werden soll.  
+- `item` (string): Die ID des zu löschenden Artikels.  
+
+**Antwortkörper:** Das gelöschte Artikel-Objekt.  
+
+**Beispiel Anfrage:**  
+```http
+DELETE /home-inventar/delete/bigstuff/6112e16c4c62cb451cacdd50
+```
+
+**Beispiel Antwort:**  
+```json
+{
+  "_id": "6112e16c4c62cb451cacdd50",
+  "title": "Bequemes Sofa",
+  "room": "Wohnzimmer",
+  "description": "Bequemes Sofa für das Wohnzimmer.",
+  "img": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD..."
+}
+```
+
+Hinweis: Stellen Sie sicher, dass ein Server auf Port 3010 läuft, wie in der Server-Code-Snippet angegeben. Stellen Sie außerdem sicher, dass Sie angemessene Sicherheitsmechanismen wie Authentifizierung und Autorisierung implementieren, bevor Sie diese API in einer Produktionsumgebung bereitstellen.
+
+Mit dieser API können Sie das Heim-Inventar effizient verwalten, indem Sie Artikel in den entsprechenden Sammlungen hinzufügen, abrufen, aktualisieren und löschen.
